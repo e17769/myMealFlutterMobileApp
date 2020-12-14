@@ -2,26 +2,27 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:flutter/src/widgets/framework.dart';
+
 void main() {
   runApp(MyApp());
 }
 
 //Helper classes
 class meal {
-  bool had = false;
+  bool haveHadIt = false;
   String name = '';
   int wait = 120 * 60; //two hours
+  IconData icon = Icons.timelapse;
+  Color color = Colors.white30;
 
-  meal({this.name, this.had, this.wait});
+  meal({this.name, this.haveHadIt, this.wait, this.color});
 
-  int get Wait => wait;
-  set Wait(int minuteToWait) => wait = minuteToWait;
+  String get Name => haveHadIt ? '*' + name + '*' : name;
 
-  String get Name => had ? name + '**Done**' : name;
+  IconData get ICON => haveHadIt ? Icons.done : icon;
 
-  bool get Had => had;
-
-  set Had(bool status) => had = status;
+  Color get MyColor => haveHadIt ? Colors.black12 : color;
 }
 
 class MyApp extends StatelessWidget {
@@ -53,29 +54,56 @@ class _MyHomePageState extends State<MyHomePage> {
   Timer _timer;
   bool _timerStarted = false;
 
-  final meal _coffee = meal(name: 'Coffee Time!', had: false, wait: 3 * 60);
-  final meal _first = meal(name: 'First meal', had: false, wait: 120 * 60);
-  final meal _second = meal(name: 'Second meal', had: false, wait: 120 * 60);
-  final meal _third = meal(name: 'Third meal', had: false, wait: 120 * 60);
-  final meal _fourth = meal(name: 'Fourth meal', had: false, wait: 120 * 60);
-  final meal _final = meal(name: 'Final meal', had: false, wait: 120 * 60);
+  final meal _coffee = meal(
+      name: 'Coffee Time!', haveHadIt: false, wait: 2, color: Colors.brown);
+  final meal _first = meal(
+      name: 'First meal',
+      haveHadIt: false,
+      wait: 2,
+      color: Colors.blue); //120 * 60
+  final meal _second = meal(
+      name: 'Second meal',
+      haveHadIt: false,
+      wait: 2,
+      color: Colors.lightBlueAccent); // 120 * 60
+  final meal _third = meal(
+      name: 'Third meal',
+      haveHadIt: false,
+      wait: 2,
+      color: Colors.deepOrangeAccent); //120 * 60
+  final meal _fourth = meal(
+      name: 'Fourth meal',
+      haveHadIt: false,
+      wait: 2,
+      color: Colors.orangeAccent); //120 * 60
+  final meal _final = meal(
+      name: 'Final meal',
+      haveHadIt: false,
+      wait: 2,
+      color: Colors.deepOrange); //120 * 60
 
   //State
 
   void startMealCounter(meal m) {
-    setState(() {
-      _counter = m.Wait;
-      startTimer();
+    setState(() async {
+      _counter = m.wait;
+      startTimer(m);
     });
   }
 
   void _reset() {
     setState(() {
+      _coffee.haveHadIt = false;
+      _first.haveHadIt = false;
+      _second.haveHadIt = false;
+      _third.haveHadIt = false;
+      _fourth.haveHadIt = false;
+      _final.haveHadIt = false;
       _counter = 0;
     });
   }
 
-  void startTimer() {
+  void startTimer(meal m) {
     if (!_timerStarted) {
       _timerStarted = true;
 
@@ -86,12 +114,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (_counter < 1) {
                   timer.cancel();
                   _timerStarted = false;
+                  m.haveHadIt = true;
+                  _showMyDialog(m);
                 } else {
                   _counter = _counter - 1;
                 }
               }));
     }
   }
+
+  Future<void> _showMyDialog(meal m) async => showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Hey dude! ' + m.name),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(
+                      'Are you ready for your next treat? you have been waitting for ' +
+                          (m.wait / 60).toString() +
+                          ' minutes my guy! '),
+                  const Text(
+                      'Hey don not forget to start the timer for your next meal'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Yes! It is time for ' + m.name + ' aint it'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -124,48 +184,45 @@ class _MyHomePageState extends State<MyHomePage> {
                   primary: Colors.white,
                   backgroundColor: Colors.brown,
                 ),
-                icon: const Icon(Icons.timelapse),
+                icon: Icon(coffee.ICON),
                 onPressed: () => startMealCounter(coffee)),
             //First on
 
             TextButton.icon(
-                label: Text(first.name),
+                label: Text(first.Name),
                 style: TextButton.styleFrom(
                   primary: Colors.white,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: first.MyColor,
                 ),
-                icon: const Icon(Icons.timelapse),
+                icon: Icon(first.ICON),
                 onPressed: () => startMealCounter(first)),
             //second meal
             TextButton.icon(
-                label: Text(second.name),
+                label: Text(second.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: Colors.lightBlueAccent),
-                icon: const Icon(Icons.timelapse),
+                    primary: Colors.white, backgroundColor: second.MyColor),
+                icon: Icon(second.ICON),
                 onPressed: () => startMealCounter(second)),
             //3rd meal
             TextButton.icon(
-                label: Text(third.name),
+                label: Text(third.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: Colors.deepOrangeAccent),
-                icon: const Icon(Icons.timelapse),
+                    primary: Colors.white, backgroundColor: third.MyColor),
+                icon: Icon(third.ICON),
                 onPressed: () => startMealCounter(third)),
             //4th meal
             TextButton.icon(
-                label: Text(fourth.name),
+                label: Text(fourth.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: Colors.orangeAccent),
-                icon: const Icon(Icons.timelapse),
+                    primary: Colors.white, backgroundColor: fourth.MyColor),
+                icon: Icon(fourth.ICON),
                 onPressed: () => startMealCounter(fourth)),
             //5th meal
             TextButton.icon(
-                label: Text(last.name),
+                label: Text(last.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white, backgroundColor: Colors.deepOrange),
-                icon: const Icon(Icons.timelapse),
+                    primary: Colors.white, backgroundColor: last.MyColor),
+                icon: Icon(last.ICON),
                 onPressed: () => startMealCounter(last)),
             //Original
           ],

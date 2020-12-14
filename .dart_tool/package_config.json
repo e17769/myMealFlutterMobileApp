@@ -86,6 +86,12 @@
       "languageVersion": "1.11"
     },
     {
+      "name": "soundpool",
+      "rootUri": "file:///Users/E17769/dev/flutter/.pub-cache/hosted/pub.dartlang.org/soundpool-0.5.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "source_span",
       "rootUri": "file:///Users/E17769/dev/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.0-nullsafety.2",
       "packageUri": "lib/",
@@ -140,7 +146,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-12-14T11:02:39.036908Z",
+  "generated": "2020-12-14T11:50:48.899267Z",
   "generator": "pub",
   "generatorVersion": "2.10.4"
 }
