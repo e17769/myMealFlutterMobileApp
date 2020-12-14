@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -69,14 +71,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  Timer _timer;
   bool _timerStarted = false;
 
   final meal _coffee = meal(name: 'Coffee Time!', had: false, wait: 3 * 60);
-  final meal _first = meal(name: 'First meal', had: false);
-  final meal _second = meal(name: 'Second meal', had: false);
-  final meal _third = meal(name: 'Third meal', had: false);
-  final meal _fourth = meal(name: 'Fourth meal', had: false);
-  final meal _final = meal(name: 'Final meal', had: false);
+  final meal _first = meal(name: 'First meal', had: false, wait: 120 * 60);
+  final meal _second = meal(name: 'Second meal', had: false, wait: 120 * 60);
+  final meal _third = meal(name: 'Third meal', had: false, wait: 120 * 60);
+  final meal _fourth = meal(name: 'Fourth meal', had: false, wait: 120 * 60);
+  final meal _final = meal(name: 'Final meal', had: false, wait: 120 * 60);
 
   //State
 
@@ -114,6 +117,16 @@ class _MyHomePageState extends State<MyHomePage> {
       _timerStarted = true;
 
       const oneSec = const Duration(seconds: 1);
+      _timer = new Timer.periodic(
+          oneSec,
+          (Timer timer) => setState(() {
+                if (_counter < 1) {
+                  timer.cancel();
+                  _timerStarted = false;
+                } else {
+                  _counter = _counter - 1;
+                }
+              }));
     }
   }
 
