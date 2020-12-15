@@ -130,6 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
+            contentTextStyle: const TextStyle(color: Colors.white),
+            backgroundColor: Colors.redAccent,
             title: Text('Hey dude! ' + m.name),
             content: SingleChildScrollView(
               child: ListBody(
@@ -145,6 +147,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             actions: <Widget>[
               TextButton(
+                style: TextButton.styleFrom(
+                    textStyle:
+                        const TextStyle(fontSize: 20, color: Colors.white)),
                 child: Text('Yes! It is time for ' + m.name + ' aint it'),
                 onPressed: () {
                   Navigator.of(context).pop();
