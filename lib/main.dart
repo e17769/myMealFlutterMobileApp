@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final meal _first = meal(
       name: 'First meal',
       haveHadIt: false,
-      wait: 2,
+      wait: 120 * 60,
       color: Colors.blue); //120 * 60
   final meal _second = meal(
       name: 'Second meal',
