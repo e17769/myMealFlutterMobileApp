@@ -1,4 +1,4 @@
-#Mon Dec 14 17:28:02 EST 2020
+#Mon Dec 14 18:37:29 EST 2020
 base.0=/Users/E17769/dev/flutter/myMealFlutterMobileApp/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

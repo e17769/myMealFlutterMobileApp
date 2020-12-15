@@ -15,8 +15,9 @@ class meal {
   int wait = 120 * 60; //two hours
   IconData icon = Icons.timelapse;
   Color color = Colors.white30;
+  double myFontSize = 18;
 
-  meal({this.name, this.haveHadIt, this.wait, this.color});
+  meal({this.name, this.haveHadIt, this.wait, this.color, this.myFontSize});
 
   String get Name => haveHadIt ? '*' + name + '*' : name;
 
@@ -42,9 +43,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -87,6 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void startMealCounter(meal m) {
     setState(() async {
       _counter = m.wait;
+      m.haveHadIt = false;
+      m.myFontSize = 60;
       startTimer(m);
     });
   }
@@ -115,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   timer.cancel();
                   _timerStarted = false;
                   m.haveHadIt = true;
+                  m.myFontSize = 18;
                   _showMyDialog(m);
                 } else {
                   _counter = _counter - 1;
@@ -180,9 +182,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 label: Text(coffee.Name),
                 style: TextButton.styleFrom(
                   shadowColor: Colors.black38,
-                  textStyle: const TextStyle(fontSize: 50),
+                  textStyle: TextStyle(fontSize: coffee.myFontSize),
                   primary: Colors.white,
-                  backgroundColor: Colors.brown,
+                  backgroundColor: coffee.MyColor,
                 ),
                 icon: Icon(coffee.ICON),
                 onPressed: () => startMealCounter(coffee)),
@@ -191,6 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton.icon(
                 label: Text(first.Name),
                 style: TextButton.styleFrom(
+                  textStyle: TextStyle(fontSize: first.myFontSize),
                   primary: Colors.white,
                   backgroundColor: first.MyColor,
                 ),
@@ -200,28 +203,36 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton.icon(
                 label: Text(second.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white, backgroundColor: second.MyColor),
+                    textStyle: TextStyle(fontSize: second.myFontSize),
+                    primary: Colors.white,
+                    backgroundColor: second.MyColor),
                 icon: Icon(second.ICON),
                 onPressed: () => startMealCounter(second)),
             //3rd meal
             TextButton.icon(
                 label: Text(third.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white, backgroundColor: third.MyColor),
+                    textStyle: TextStyle(fontSize: third.myFontSize),
+                    primary: Colors.white,
+                    backgroundColor: third.MyColor),
                 icon: Icon(third.ICON),
                 onPressed: () => startMealCounter(third)),
             //4th meal
             TextButton.icon(
                 label: Text(fourth.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white, backgroundColor: fourth.MyColor),
+                    textStyle: TextStyle(fontSize: fourth.myFontSize),
+                    primary: Colors.white,
+                    backgroundColor: fourth.MyColor),
                 icon: Icon(fourth.ICON),
                 onPressed: () => startMealCounter(fourth)),
             //5th meal
             TextButton.icon(
                 label: Text(last.Name),
                 style: TextButton.styleFrom(
-                    primary: Colors.white, backgroundColor: last.MyColor),
+                    textStyle: TextStyle(fontSize: last.myFontSize),
+                    primary: Colors.white,
+                    backgroundColor: last.MyColor),
                 icon: Icon(last.ICON),
                 onPressed: () => startMealCounter(last)),
             //Original
