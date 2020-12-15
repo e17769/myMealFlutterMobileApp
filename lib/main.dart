@@ -54,7 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _timerStarted = false;
 
   final meal _coffee = meal(
-      name: 'Coffee Time!', haveHadIt: false, wait: 2, color: Colors.brown);
+      name: 'Coffee Time!',
+      haveHadIt: false,
+      wait: 3 * 60,
+      color: Colors.brown);
   final meal _first = meal(
       name: 'First meal',
       haveHadIt: false,
@@ -63,24 +66,23 @@ class _MyHomePageState extends State<MyHomePage> {
   final meal _second = meal(
       name: 'Second meal',
       haveHadIt: false,
-      wait: 2,
+      wait: 120 * 60,
       color: Colors.lightBlueAccent); // 120 * 60
   final meal _third = meal(
       name: 'Third meal',
       haveHadIt: false,
-      wait: 2,
+      wait: 120 * 60,
       color: Colors.deepOrangeAccent); //120 * 60
   final meal _fourth = meal(
       name: 'Fourth meal',
       haveHadIt: false,
-      wait: 2,
+      wait: 120 * 60,
       color: Colors.orangeAccent); //120 * 60
   final meal _final = meal(
       name: 'Final meal',
       haveHadIt: false,
-      wait: 2,
+      wait: 120 * 602,
       color: Colors.deepOrange); //120 * 60
-
   //State
 
   void startMealCounter(meal m) {
@@ -169,86 +171,97 @@ class _MyHomePageState extends State<MyHomePage> {
     final meal last = _final;
     final meal coffee = _coffee;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('time Remaining',
-                style: Theme.of(context).textTheme.headline6),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            TextButton.icon(
-                label: Text(coffee.Name),
-                style: TextButton.styleFrom(
-                  shadowColor: Colors.black38,
-                  textStyle: TextStyle(fontSize: coffee.myFontSize),
-                  primary: Colors.white,
-                  backgroundColor: coffee.MyColor,
-                ),
-                icon: Icon(coffee.ICON),
-                onPressed: () => startMealCounter(coffee)),
-            //First on
-
-            TextButton.icon(
-                label: Text(first.Name),
-                style: TextButton.styleFrom(
-                  textStyle: TextStyle(fontSize: first.myFontSize),
-                  primary: Colors.white,
-                  backgroundColor: first.MyColor,
-                ),
-                icon: Icon(first.ICON),
-                onPressed: () => startMealCounter(first)),
-            //second meal
-            TextButton.icon(
-                label: Text(second.Name),
-                style: TextButton.styleFrom(
-                    textStyle: TextStyle(fontSize: second.myFontSize),
-                    primary: Colors.white,
-                    backgroundColor: second.MyColor),
-                icon: Icon(second.ICON),
-                onPressed: () => startMealCounter(second)),
-            //3rd meal
-            TextButton.icon(
-                label: Text(third.Name),
-                style: TextButton.styleFrom(
-                    textStyle: TextStyle(fontSize: third.myFontSize),
-                    primary: Colors.white,
-                    backgroundColor: third.MyColor),
-                icon: Icon(third.ICON),
-                onPressed: () => startMealCounter(third)),
-            //4th meal
-            TextButton.icon(
-                label: Text(fourth.Name),
-                style: TextButton.styleFrom(
-                    textStyle: TextStyle(fontSize: fourth.myFontSize),
-                    primary: Colors.white,
-                    backgroundColor: fourth.MyColor),
-                icon: Icon(fourth.ICON),
-                onPressed: () => startMealCounter(fourth)),
-            //5th meal
-            TextButton.icon(
-                label: Text(last.Name),
-                style: TextButton.styleFrom(
-                    textStyle: TextStyle(fontSize: last.myFontSize),
-                    primary: Colors.white,
-                    backgroundColor: last.MyColor),
-                icon: Icon(last.ICON),
-                onPressed: () => startMealCounter(last)),
-            //Original
-          ],
+    return Stack(
+      children: <Widget>[
+        Image.asset(
+          'img/BG.png',
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _reset,
-        tooltip: 'Reset',
-        child: const Icon(Icons.restore),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        Scaffold(
+          backgroundColor: Image.asset('img/BG.png').color,
+          appBar: AppBar(
+            title: Text(widget.title),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('time Remaining',
+                    style: Theme.of(context).textTheme.headline6),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline1,
+                ),
+                TextButton.icon(
+                    label: Text(coffee.Name),
+                    style: TextButton.styleFrom(
+                      shadowColor: Colors.black38,
+                      textStyle: TextStyle(fontSize: coffee.myFontSize),
+                      primary: Colors.white,
+                      backgroundColor: coffee.MyColor,
+                    ),
+                    icon: Icon(coffee.ICON),
+                    onPressed: () => startMealCounter(coffee)),
+                //First on
+
+                TextButton.icon(
+                    label: Text(first.Name),
+                    style: TextButton.styleFrom(
+                      textStyle: TextStyle(fontSize: first.myFontSize),
+                      primary: Colors.white,
+                      backgroundColor: first.MyColor,
+                    ),
+                    icon: Icon(first.ICON),
+                    onPressed: () => startMealCounter(first)),
+                //second meal
+                TextButton.icon(
+                    label: Text(second.Name),
+                    style: TextButton.styleFrom(
+                        textStyle: TextStyle(fontSize: second.myFontSize),
+                        primary: Colors.white,
+                        backgroundColor: second.MyColor),
+                    icon: Icon(second.ICON),
+                    onPressed: () => startMealCounter(second)),
+                //3rd meal
+                TextButton.icon(
+                    label: Text(third.Name),
+                    style: TextButton.styleFrom(
+                        textStyle: TextStyle(fontSize: third.myFontSize),
+                        primary: Colors.white,
+                        backgroundColor: third.MyColor),
+                    icon: Icon(third.ICON),
+                    onPressed: () => startMealCounter(third)),
+                //4th meal
+                TextButton.icon(
+                    label: Text(fourth.Name),
+                    style: TextButton.styleFrom(
+                        textStyle: TextStyle(fontSize: fourth.myFontSize),
+                        primary: Colors.white,
+                        backgroundColor: fourth.MyColor),
+                    icon: Icon(fourth.ICON),
+                    onPressed: () => startMealCounter(fourth)),
+                //5th meal
+                TextButton.icon(
+                    label: Text(last.Name),
+                    style: TextButton.styleFrom(
+                        textStyle: TextStyle(fontSize: last.myFontSize),
+                        primary: Colors.white,
+                        backgroundColor: last.MyColor),
+                    icon: Icon(last.ICON),
+                    onPressed: () => startMealCounter(last)),
+                //Original
+              ],
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: _reset,
+            tooltip: 'Reset',
+            child: const Icon(Icons.restore),
+          ), // This trailing comma makes auto-formatting nicer for build methods.
+        )
+      ],
     );
   }
 }
