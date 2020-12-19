@@ -146,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           (m.wait / 60).toString() +
                           ' minutes my guy! '),
                   const Text(
-                      'Hey don not forget to start the timer for your next meal'),
+                      'Hey do not forget to start the timer for your next meal'),
                 ],
               ),
             ),
