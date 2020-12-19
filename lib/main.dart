@@ -31,18 +31,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Day',
+      title: 'The Gadir Feeder',
       theme: ThemeData(
         primaryColor: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Good day!'),
+      home: const MyHomePage(title: 'Beast! Are you hungery yet?'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 const Text(
-                  'time Remaining',
+                  'Time Remaining',
                   style: TextStyle(color: Colors.white, fontSize: 30),
                   textAlign: TextAlign.center,
                 ),
