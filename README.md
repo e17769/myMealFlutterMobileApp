@@ -1,10 +1,17 @@
-# My Meal 
+# My Meal
 
 It is a mobile Flutter project to help me organize the time bettween my meals.
 This will grow as I add more functionality around organizing my deals.
 
-please the see the walk through Video
--[Beast Feeder] (https://youtu.be/8hm71QNrq-U)
+please the see the walk through Video -[Beast Feeder] (https://youtu.be/8hm71QNrq-U)
+
+Here are some screen shots of the application
+
+![Step 1](https://github.com/e17769/myMealFlutterMobileApp/blob/main/documentation/images/step1.jpg?raw=true)
+
+![Step 2](https://github.com/e17769/myMealFlutterMobileApp/blob/main/documentation/images/step2.jpg?raw=true)
+
+![Step 3](https://github.com/e17769/myMealFlutterMobileApp/blob/main/documentation/images/step3.jpg?raw=true)
 
 ## Getting Started
 
