@@ -1,0 +1,11 @@
+framework module soundpool {
+  umbrella header "soundpool-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module soundpool.Swift {
+    header "soundpool-Swift.h"
+    requires objc
+}

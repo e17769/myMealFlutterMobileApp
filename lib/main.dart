@@ -33,10 +33,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My Day',
       theme: ThemeData(
-        primarySwatch: Colors.brown,
+        primaryColor: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Good morning BOSS!'),
+      home: MyHomePage(title: 'Good day!'),
     );
   }
 }
@@ -57,32 +57,32 @@ class _MyHomePageState extends State<MyHomePage> {
       name: 'Coffee Time!',
       haveHadIt: false,
       wait: 3 * 60,
-      color: Colors.brown);
+      color: Colors.transparent);
   final meal _first = meal(
       name: 'First meal',
       haveHadIt: false,
       wait: 120 * 60,
-      color: Colors.blue); //120 * 60
+      color: Colors.transparent); //120 * 60
   final meal _second = meal(
       name: 'Second meal',
       haveHadIt: false,
       wait: 120 * 60,
-      color: Colors.lightBlueAccent); // 120 * 60
+      color: Colors.transparent); // 120 * 60
   final meal _third = meal(
       name: 'Third meal',
       haveHadIt: false,
       wait: 120 * 60,
-      color: Colors.deepOrangeAccent); //120 * 60
+      color: Colors.transparent); //120 * 60
   final meal _fourth = meal(
       name: 'Fourth meal',
       haveHadIt: false,
       wait: 120 * 60,
-      color: Colors.orangeAccent); //120 * 60
+      color: Colors.transparent); //120 * 60
   final meal _final = meal(
       name: 'Final meal',
       haveHadIt: false,
       wait: 120 * 602,
-      color: Colors.deepOrange); //120 * 60
+      color: Colors.transparent); //120 * 60
   //State
 
   void startMealCounter(meal m) {
@@ -133,8 +133,11 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (BuildContext context) {
           return AlertDialog(
             contentTextStyle: const TextStyle(color: Colors.white),
-            backgroundColor: Colors.redAccent,
-            title: Text('Hey dude! ' + m.name),
+            backgroundColor: Colors.transparent,
+            shape: const RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white)),
+            title: Text('Hey dude! ' + m.name,
+                style: const TextStyle(color: Colors.white)),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -149,10 +152,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             actions: <Widget>[
               TextButton(
-                style: TextButton.styleFrom(
-                    textStyle:
-                        const TextStyle(fontSize: 20, color: Colors.white)),
-                child: Text('Yes! It is time for ' + m.name + ' aint it'),
+                child: const Text('  Done!  ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        backgroundColor: Colors.redAccent)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -174,25 +178,34 @@ class _MyHomePageState extends State<MyHomePage> {
     return Stack(
       children: <Widget>[
         Image.asset(
-          'img/BG.png',
+          'images/agbg.jpg',
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.cover,
         ),
         Scaffold(
-          backgroundColor: Image.asset('img/BG.png').color,
+          //backgroundColor: Image.asset('images/BG.png').color,
           appBar: AppBar(
             title: Text(widget.title),
           ),
-          body: Center(
+          body: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('images/agbg.jpg'), fit: BoxFit.cover)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text('time Remaining',
-                    style: Theme.of(context).textTheme.headline6),
+                const Text(
+                  'time Remaining',
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                  textAlign: TextAlign.center,
+                ),
+
                 Text(
                   '$_counter',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: const TextStyle(color: Colors.white, fontSize: 159),
+                  textAlign: TextAlign.center,
                 ),
                 TextButton.icon(
                     label: Text(coffee.Name),
@@ -212,6 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       textStyle: TextStyle(fontSize: first.myFontSize),
                       primary: Colors.white,
                       backgroundColor: first.MyColor,
+                      shadowColor: Colors.black26,
                     ),
                     icon: Icon(first.ICON),
                     onPressed: () => startMealCounter(first)),
