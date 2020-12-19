@@ -3,6 +3,9 @@
 It is a mobile Flutter project to help me organize the time bettween my meals.
 This will grow as I add more functionality around organizing my deals.
 
+please the see the walk through Video
+-[Beast Feeder] (https://youtu.be/8hm71QNrq-U)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
