@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MealPlanner());
 }
 
 //Helper classes
-class meal {
+class Meal {
   bool haveHadIt = false;
   String name = '';
   int wait = 120 * 60; //two hours
@@ -17,7 +17,7 @@ class meal {
   Color color = Colors.white30;
   double myFontSize = 18;
 
-  meal({this.name, this.haveHadIt, this.wait, this.color, this.myFontSize});
+  Meal({this.name, this.haveHadIt, this.wait, this.color, this.myFontSize});
 
   String get Name => haveHadIt ? '*' + name + '*' : name;
 
@@ -26,7 +26,8 @@ class meal {
   Color get MyColor => haveHadIt ? Colors.black12 : color;
 }
 
-class MyApp extends StatelessWidget {
+//Meal Planner page
+class MealPlanner extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,26 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const MyHomePage(title: 'Beast! Are you hungery yet?'),
+    );
+  }
+}
+
+//Shopping list page
+class ShoppingList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
     );
   }
 }
@@ -53,39 +74,39 @@ class _MyHomePageState extends State<MyHomePage> {
   Timer _timer;
   bool _timerStarted = false;
 
-  final meal _coffee = meal(
+  final Meal _coffee = Meal(
       name: 'Coffee Time!',
       haveHadIt: false,
       wait: 3 * 60,
       color: Colors.transparent);
-  final meal _first = meal(
-      name: 'First meal',
+  final Meal _first = Meal(
+      name: 'First Meal',
       haveHadIt: false,
       wait: 120 * 60,
       color: Colors.transparent); //120 * 60
-  final meal _second = meal(
-      name: 'Second meal',
+  final Meal _second = Meal(
+      name: 'Second Meal',
       haveHadIt: false,
       wait: 120 * 60,
       color: Colors.transparent); // 120 * 60
-  final meal _third = meal(
-      name: 'Third meal',
+  final Meal _third = Meal(
+      name: 'Third Meal',
       haveHadIt: false,
       wait: 120 * 60,
       color: Colors.transparent); //120 * 60
-  final meal _fourth = meal(
-      name: 'Fourth meal',
+  final Meal _fourth = Meal(
+      name: 'Fourth Meal',
       haveHadIt: false,
       wait: 120 * 60,
       color: Colors.transparent); //120 * 60
-  final meal _final = meal(
-      name: 'Final meal',
+  final Meal _final = Meal(
+      name: 'Final Meal',
       haveHadIt: false,
       wait: 120 * 602,
       color: Colors.transparent); //120 * 60
   //State
 
-  void startMealCounter(meal m) {
+  void startMealCounter(Meal m) {
     setState(() async {
       _counter = m.wait;
       m.haveHadIt = false;
@@ -106,7 +127,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void startTimer(meal m) {
+  void goToShoppingList() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => ShoppingList()),
+    );
+  }
+
+  void startTimer(Meal m) {
     if (!_timerStarted) {
       _timerStarted = true;
 
@@ -127,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<void> _showMyDialog(meal m) async => showDialog<void>(
+  Future<void> _showMyDialog(Meal m) async => showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
@@ -168,12 +196,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final meal first = _first;
-    final meal second = _second;
-    final meal third = _third;
-    final meal fourth = _fourth;
-    final meal last = _final;
-    final meal coffee = _coffee;
+    final Meal first = _first;
+    final Meal second = _second;
+    final Meal third = _third;
+    final Meal fourth = _fourth;
+    final Meal last = _final;
+    final Meal coffee = _coffee;
 
     return Stack(
       children: <Widget>[
@@ -184,7 +212,6 @@ class _MyHomePageState extends State<MyHomePage> {
           fit: BoxFit.cover,
         ),
         Scaffold(
-          //backgroundColor: Image.asset('images/BG.png').color,
           appBar: AppBar(
             title: Text(widget.title),
           ),
@@ -265,15 +292,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         backgroundColor: last.MyColor),
                     icon: Icon(last.ICON),
                     onPressed: () => startMealCounter(last)),
-                //Original
+                //Reset
+                TextButton.icon(
+                    label: const Text('Reset'),
+                    style: TextButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 33),
+                        primary: Colors.red,
+                        backgroundColor: Colors.transparent),
+                    icon: const Icon(Icons.restore),
+                    onPressed: _reset),
               ],
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: _reset,
+            //onPressed: _reset,
+            onPressed: goToShoppingList,
             tooltip: 'Reset',
-            child: const Icon(Icons.restore),
-          ), // This trailing comma makes auto-formatting nicer for build methods.
+            child: const Icon(Icons.add_shopping_cart_outlined),
+          ),
+          // This trailing comma makes auto-formatting nicer for build methods.
         )
       ],
     );
