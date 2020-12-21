@@ -9,6 +9,8 @@ please the see the walk through Video -[Youtube (Atlanta Dev Talk)] (https://you
 
 Here are some screen shots of the application
 
+![Screens](https://github.com/e17769/myMealFlutterMobileApp/blob/main/documentation/images/appv1.gif?raw=true)
+
 ![Step 1](https://github.com/e17769/myMealFlutterMobileApp/blob/main/documentation/images/step1.jpg?raw=true)
 
 ![Step 2](https://github.com/e17769/myMealFlutterMobileApp/blob/main/documentation/images/step2.jpg?raw=true)
